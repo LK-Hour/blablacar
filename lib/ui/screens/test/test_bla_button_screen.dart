@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/actions/bla_button.dart';
+import '../../widgets/actions/bla_button.dart';
 
 /// Simple test screen to validate BlaButton variations
 class TestBlaButtonScreen extends StatelessWidget {

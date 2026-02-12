@@ -34,7 +34,6 @@ class BlaButton extends StatelessWidget {
         : BorderSide(color: BlaColors.greyLight, width: 2);
 
     final Color textColor = isPrimary ? BlaColors.white : BlaColors.primary;
-
     final Color iconColor = isPrimary ? BlaColors.white : BlaColors.primary;
 
     List<Widget> children = [];
