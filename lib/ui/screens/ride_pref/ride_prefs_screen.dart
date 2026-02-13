@@ -67,10 +67,10 @@ class RidePrefsScreen extends StatelessWidget {
                   shrinkWrap: true, // Fix ListView height issue
                   physics: AlwaysScrollableScrollPhysics(),
                   itemCount: RidePrefsService.ridePrefsHistory.length,
-                  itemBuilder: (context, index) => RidePrefsTile(
+                  itemBuilder: (ctx, index) => RidePrefsTile(
                     ridePref: RidePrefsService.ridePrefsHistory[index],
                     onPressed: () => onRidePrefSelected(
-                      context,
+                      ctx,
                       RidePrefsService.ridePrefsHistory[index],
                     ),
                   ),
