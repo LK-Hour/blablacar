@@ -1,7 +1,9 @@
 import 'package:blabla/model/ride_pref/ride_pref.dart';
 import 'package:blabla/services/ride_prefs_service.dart';
 import 'package:flutter/material.dart';
+import '../../../utils/animations_util.dart';
 import '../../theme/theme.dart';
+import '../rides/rides_screen.dart';
 import 'widgets/ride_prefs_form.dart';
 import 'widgets/ride_prefs_tile.dart';
 
@@ -15,8 +17,14 @@ const String blablaHomeImagePath = 'assets/images/blabla_home.png';
 class RidePrefsScreen extends StatelessWidget {
   const RidePrefsScreen({super.key});
 
-  void onRidePrefSelected(RidePref ridePref) {
-    // TODO
+  void onRidePrefSelected(BuildContext context, RidePref ridePref) {
+    RidePrefsService.selectedRidePref = ridePref;
+
+    Navigator.of(context).push(
+      AnimationUtils.createBottomToTopRoute(
+        RidesScreen(initialRidePref: ridePref),
+      ),
+    );
   }
 
   @override
@@ -48,21 +56,21 @@ class RidePrefsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-
               // 2 - THE FORM
               RidePrefForm(initRidePref: RidePrefsService.selectedRidePref),
               SizedBox(height: BlaSpacings.m),
 
-              // 3 - THE HISTORY 
+              // 3 - THE HISTORY
               SizedBox(
                 height: 200, // Set a fixed height
                 child: ListView.builder(
                   shrinkWrap: true, // Fix ListView height issue
                   physics: AlwaysScrollableScrollPhysics(),
                   itemCount: RidePrefsService.ridePrefsHistory.length,
-                  itemBuilder: (ctx, index) => RidePrefsTile(
+                  itemBuilder: (context, index) => RidePrefsTile(
                     ridePref: RidePrefsService.ridePrefsHistory[index],
                     onPressed: () => onRidePrefSelected(
+                      context,
                       RidePrefsService.ridePrefsHistory[index],
                     ),
                   ),
