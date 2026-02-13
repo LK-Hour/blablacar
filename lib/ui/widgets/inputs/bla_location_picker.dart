@@ -22,7 +22,9 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
     super.initState();
 
     if (widget.initLocation != null) {
-      filteredLocations = getLocationsFor(widget.initLocation!.name);
+      filteredLocations = LocationsService.filterLocations(
+        widget.initLocation!.name,
+      );
     }
   }
 
@@ -39,21 +41,12 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
 
     if (searchText.length > 1) {
       //Show the available location after putting 2 charaters in the search bar
-      newSelection = getLocationsFor(searchText);
+      newSelection = LocationsService.filterLocations(searchText);
     }
 
     setState(() {
       filteredLocations = newSelection;
     });
-  }
-
-  List<Location> getLocationsFor(String text) {
-    return LocationsService.availableLocations
-        .where(
-          (location) =>
-              location.name.toUpperCase().contains(text.toUpperCase()),
-        )
-        .toList();
   }
 
   @override
