@@ -8,6 +8,7 @@ import '../../../theme/theme.dart';
 import '../../../widgets/actions/bla_button.dart';
 import '../../../widgets/display/bla_divider.dart';
 import '../../../widgets/inputs/bla_location_picker.dart';
+import '../../../widgets/inputs/bla_seat_spinner.dart';
 import '../../rides/rides_screen.dart';
 import 'ride_pref_input_tile.dart';
 
@@ -112,6 +113,20 @@ class _RidePrefFormState extends State<RidePrefForm> {
     });
   }
 
+  void onSeatsPressed() async {
+    int? newSeats = await Navigator.of(context).push<int>(
+      AnimationUtils.createBottomToTopRoute(
+        BlaSeatSpinner(initialSeats: requestedSeats),
+      ),
+    );
+
+    if (newSeats != null) {
+      setState(() {
+        requestedSeats = newSeats;
+      });
+    }
+  }
+
   // ----------------------------------
   // Compute the widgets rendering
   // ----------------------------------
@@ -172,7 +187,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
               RidePrefInputTile(
                 title: numberLabel,
                 leftIcon: Icons.person_2_outlined,
-                onPressed: () => {},
+                onPressed: onSeatsPressed,
               ),
             ],
           ),
