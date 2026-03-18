@@ -1,4 +1,3 @@
-import '../data/dummy_data.dart';
 import '../model/ride_pref/ride_pref.dart';
 
 ////
@@ -7,21 +6,27 @@ import '../model/ride_pref/ride_pref.dart';
 ///   - Curent selected ride preferences.
 ///
 
-abstract class RidePreferencesListener {
-  void onPreferenceSelected(RidePref selectedPreference);
-}
-
+// TODO Improve this with a proper repository and a global state
 class RidePrefsService {
-  static RidePref? selectedRidePref; // The current selected ride preference
+  static RidePreference? _selectedPreference;
+  static final List<RidePreference> _preferenceHistory = [];
 
-  static List<RidePref> ridePrefsHistory = fakeRidePrefs;
-  final List<RidePref> _listener = [];
+  static final int maxAllowedSeats = 8;
 
-  void addListener(RidePreferencesListener listener) {
-    _listener.add(listener as RidePref);
+  static RidePreference? get selectedPreference => _selectedPreference;
+  static List<RidePreference> get preferenceHistory => _preferenceHistory;
+
+  static void selectPreference(RidePreference preference) {
+    if (preference != _selectedPreference) {
+      // Set the selected preference
+      _selectedPreference = preference;
+
+      // Push to history
+      _addPreferenceToHistory(preference);
+    }
   }
 
-  // void _notifyListener() {
-  //   RidePreferencesListener.forEach((pref) => pref.onPreferenceSelected());
-  // }
+  static void _addPreferenceToHistory(RidePreference preference) {
+    _preferenceHistory.add(preference);
+  }
 }
